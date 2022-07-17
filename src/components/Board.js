@@ -17,20 +17,27 @@ export default function Board(props) {
   let col = new Set();
   let pos = new Set();
   let neg = new Set();
+  let flag = true
   function backtrack(n) {
-    if (n <= 0) return;
-    for (let i = 0; i < props.size; i++) {
+    if (n <= 0) 
+    {
+      flag = false;
+      return;
+    }
+    for (let i = 1; i <= props.size && flag; i++) {
       if (!col.has(i) && !pos.has(n + i) && !neg.has(n - i)) {
         col.add(i);
-        pos.add(n + i);
-        neg.add(n - i);
+        pos.add(parseInt(n) + parseInt(i));
+        // console.log(new Array(...pos).join(' '))
+        neg.add(parseInt(n) - parseInt(i));
         setRes((x) => [...x, { row: n, colom: i, status: "insert" }]);
         // console.log(res)
         backtrack(n - 1);
         setRes((x) => [...x, { row: n, colom: i, status: "remove" }]);
         col.delete(i);
-        pos.delete(n + i);
-        neg.delete(n - i);
+        pos.delete(parseInt(n) + parseInt(i));
+        // console.log(new Array(...pos).join(' '))
+        neg.delete(parseInt(n) - parseInt(i));
       } else {
         setRes((x) => [...x, { row: n, colom: i, status: "insert" }]);
         setRes((x) => [...x, { row: n, colom: i, status: "remove" }]);
@@ -61,7 +68,7 @@ export default function Board(props) {
   const[count,setCount] = React.useState(0)
   function next()
   {
-    if(count < res.length)
+    if(count < res.length - props.size)
     {
       setPlace((prev)=>{
         let change = [[]];
@@ -70,7 +77,7 @@ export default function Board(props) {
         // console.log(prev)
         // console.log("hey" + change)
         const r = res[count].row-1
-        const c = res[count].colom
+        const c = res[count].colom-1
         // console.log(r,c)
         // console.log(count)
         for(let i = 0; i < props.size; i++)
@@ -87,7 +94,7 @@ export default function Board(props) {
       setCount((prev)=>prev+1)
     }
   }
-  console.log(res);
+  // console.log(res);
   return (
     <div className="board">
       <h1 className="text"> {props.size} recived </h1>
