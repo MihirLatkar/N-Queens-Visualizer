@@ -1,0 +1,25 @@
+.flex-con{
+    display: flex;
+}
+
+.not-placed{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border: 2px;
+    padding: 3px;
+    border-style: inset;
+    border-radius: 5%;
+}
+
+.placed{
+    width: 100px;
+    height: 100px;
+    background-image: url('../Images/queen.png');
+    background-size: 100px 100px;
+    background-color: white;
+    border: 2px;
+    padding: 3px;
+    border-style: inset;
+    border-radius: 5%;
+}
